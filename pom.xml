@@ -144,6 +144,12 @@
         <version>7.2.5</version>
         <type>pom</type>
     </dependency>
+    
+    <dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.6.0</version> <!-- Latest stable version -->
+</dependency>
 </dependencies>
 
 	<build>
