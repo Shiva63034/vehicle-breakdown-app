@@ -67,16 +67,17 @@ public class UserController {
     }
 
     @PostMapping(value = "/bookings", consumes = "multipart/form-data")
-    public String createBooking(
+    public ResponseEntity<?> createBooking(
             Principal principal,
             @RequestPart("booking") String bookingJson,
-            @RequestPart("image") MultipartFile image) throws Exception {
-        BookingRequest request =
-                objectMapper.readValue(bookingJson, BookingRequest.class);
+            @RequestPart(value = "image", required = false) MultipartFile image) throws Exception {
+
+        BookingRequest request = objectMapper.readValue(bookingJson, BookingRequest.class);
+
         var user = userRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        bookingService.createBooking(user.getId(), request, image);
-        return "Booking created successfully";
+
+        return ResponseEntity.ok(bookingService.createBooking(user.getId(), request, image));
     }
     
     @GetMapping("/bookings/history")
