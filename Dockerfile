@@ -8,8 +8,8 @@ RUN ./mvnw clean package -DskipTests
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-COPY --from=build /app/target/*.war /app/app.war
+COPY --from=build /app/target/breakdown-assistance-0.0.1-SNAPSHOT.war /app/app.war
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "/app/app.war"]
+CMD ["java", "-jar", "/app/app.war"]
